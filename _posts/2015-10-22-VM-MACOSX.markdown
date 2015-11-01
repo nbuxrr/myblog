@@ -24,7 +24,8 @@ description:
 ##环境
 安装些最近折腾的东西、再安装些linux上爱用的常备指令、看看XCODE挺新鲜也装起来……OK，just enjoy it。
 
-
+##PS:
+2015-10-31 增加安装显卡驱动darwin.iso，安装后mac的图形重绘的感觉有所改善，大部分安装的软件基本察觉不出重绘时的闪屏，QtCreator还是会出现闪屏，剩余OpenGL支持的问题，使用VLC SDK播放文件时，提示”no OpenGL hardware acceleration found“，预计可能还是显卡驱动的问题，真机上应该无此问题。
 
 
 
