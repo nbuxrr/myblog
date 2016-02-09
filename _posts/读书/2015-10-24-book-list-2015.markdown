@@ -18,7 +18,7 @@ books:
       publisher: Manning 
       language: English
       link: http://book.douban.com/subject/4130141/
-      cover: http://img4.douban.com/lpic/s8951347.jpg
+      cover: http://img3.doubanio.com/lpic/s8951347.jpg
       description: 是一本关于多线程并发的好书，用网上的英文版pdf打印装订封皮，享受中。
     - title: Inside the C++ Object Model
       status: 已读
@@ -26,7 +26,7 @@ books:
       publisher: 电子工业出版社
       language: 中文（侯捷译）
       link: http://book.douban.com/subject/10427315/
-      cover: http://img4.douban.com/lpic/s28286248.jpg
+      cover: http://img3.douban.com/lpic/s28286248.jpg
       description: 大师Lippman的另一本C++程序猿们必备收藏和享受的书籍。读这本书时再次感受到了当初读Effective C++时的那种一读不可收拾的欢喜。此书主要分析和讲述了C++面向对象的各种特性的实现原理，C++代码框架设计者不可不读的书。
     - title: C++ Primer 
       status: 已读
