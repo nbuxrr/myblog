@@ -1,0 +1,152 @@
+---
+layout: post
+title:  "Lua & C++"
+categories: 代码
+tags: Lua
+keywords: Lua
+description: 
+---
+##一、Lua加入工程
+####下载lua
+#####1)官方下载源码，解压；
+
+####编译第一个Lua程序
+#####2)使用VS或XCode或其他IDE新建一个“hello worde”的C++工程；
+#####3)将lua源码加入工程目录中，我的测试目录结构如下，
+{% highlight bash %}
+├── lua
+│   ├── Makefile
+│   ├── README
+│   ├── doc
+│   └── src
+├── main.cpp
+└── main.lua
+{% endhighlight %}
+./lua即为lua源码包解压出来的东西,lua的源码文件在lua/src目录下，将lua/src下的文件除Makefile、lua.c<font color="lightgray">(有一个main函数，这是lua的解释器)</font>、luac.c<font color="lightgray">(lua编译器，编译后的lua脚本可被更高效率的使用)</font>外的其他源码文件都加入到helloworld的工程中，当然，可以在工程中增加一个"luasrc"的文件筛选器，将要加入的lua源码文件都放在该文件筛选器下，便于工程结构的分类管理。
+此时在main.cpp中，还未加入lua的引用，先编译一次，应该可以编译通过main.cpp及lua的源码文件。
+
+#####4)将lua引入C++
+示例main.cpp，再编译一次，应该可以编译成功，示例程序MyLua可用来执行指定的lua脚本的文件。
+![mian.cpp code](/public/img/Snip20160521_2.png)
+
+##二、变量
+###全局(虚拟机对多文件全局)
+x = 12345
+就理解为是lua_State的全局变量x，对所有文件都通用。
+
+###本地(虚拟机对单文件局部)（local关键字修饰）
+local y = 54321
+就理解为是lua_State在某个文件里的变量y，仅在那个文件中可用。
+
+##三、变量与类型
+lua的解析器(编译器)可根据lua变量的值或者按照当时变量被操作的方法，自动将变量转为需要类型，这个转换过程要么合法的转化成功，要么非法的转化失败报错，所以一个变量的类型不是固定的，也可以说变量没有类型，只有值与值的操作方法。
+例如：
+{% highlight lua %}
+--变量类型
+local boolean bv = 0.0
+bv = x > 250
+if bv then
+    print("bv is ", bv, " true")
+else
+    print("bv is ", bv, " false")
+end
+
+math.randomseed(os.time())  
+bv = math.random(500)
+ 
+if bv > 250 then
+    print("bv is ", bv, " > 250")
+else
+    print("bv is ", bv, " <= 250")
+end
+
+bv = "bv -> string"
+print("bv is ", bv)
+--bv = bv + 1 --非法的操作，无法将不能转化为数值的字符串用于算术计算
+--print("bv is ", bv)
+
+bv = "0xEF"
+print("bv is ", bv)
+bv = bv + 1
+print("bv is ", bv)
+
+bv = "0xEF"
+print("bv is ", bv)
+bv = string.format("%s%s", bv, "kkkl")
+print("bv is ", bv)
+
+bv = "0xEF"
+print("bv is ", bv)
+bv = string.format("%d%s", bv, "kkkl")
+print("bv is ", bv)
+{% endhighlight %}
+
+结果：
+{% highlight bash %}
+bv is   false    false
+bv is   177  <= 250
+bv is   bv -> string
+bv is   0xEF
+bv is   240.0
+bv is   0xEF
+bv is   0xEFkkkl
+bv is   0xEF
+bv is   239kkkl
+{% endhighlight %}
+
+##四、控制语句
+###if判断
+{% highlight lua %}
+math.randomseed(os.time())  
+x = math.random(500)
+print("x is", x)
+
+if x < 100 then
+    print("x ∈ [0, 100)")
+elseif x < 200 then
+    print("x ∈ [100, 200)")
+elseif x == 250 then
+    print("中彩票了，250")
+elseif x < 300 then
+    print("x ∈ [200, 250)U(250, 300)")
+elseif x < 400 then
+    print("x ∈ [300, 400)")
+elseif x < 500 then
+    print("x ∈ [400, 500)")
+elseif x == 500 then
+    print("x == 500")
+else
+    print("x is ", x)
+end
+{% endhighlight %}
+###for循环 
+{% highlight lua %}
+for i = 0, 1, 0.1 do
+    print("for: i is", i)
+end
+{% endhighlight %}
+###while循环
+{% highlight lua %}
+i = 1.1
+while i < 2 do
+    print("while: i is ", i)
+    i = i + 0.1
+end
+{% endhighlight %}
+###repeat循环
+{% highlight lua %}
+i = 2.0
+repeat 
+    print("repeat: i is ", i)
+    i = i + 0.1
+until i > 3
+{% endhighlight %}
+
+##五、表
+
+##六、类
+
+##七、与C语言交互
+
+
+
