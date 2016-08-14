@@ -160,7 +160,7 @@ until i > 3
 万能的表，表之于LUA的地位应该就相当于类之于C++了吧，之前在理解元表与元方法上还有许多模糊的地方。看视频教材，也没有说的很清楚，遂决定抛弃视频教材，还是看看官方的手册比较靠谱点。
 <br/>表、元表、元方法的关系简单理解应该就是，元表中定义了元方法，或者说元方法就是元表的元素，表使用setmetatable关联元表，表就可以调用元表中的元方法了，而元表的本质也还是表，所以任意表都可以做元表，包括表做自己的元表，可见元表应该是一个相对的概念。
 <br/>剩下需要重点学习一下的就是元方法了。
-####操作符"重载"的元方法
+###操作符"重载"的元方法
 ```
 __add	-- function (a, b)		--对应 + 操作符, a + b
 __sub	-- function (a, b)		--对应 - 操作符, a - b
@@ -176,12 +176,12 @@ __lt	-- function (a, b)	--对应 < 操作符, t1 < t2
 __le	-- function (a, b)	--对应 <= 操作符 t1 <= t2
 ```
 
-####库定义的元方法
+###库定义的元方法
 ```
 __tostring		-- function (tbl) --例如print(tbl) 时，若tbl的元表中定义了__tostring元方法，则自动调用该元方法取自定义的tostring结果(与java中tostring目的相同)
 __metatable		-- 给__metatable赋值后，再对主表setmetatable其他元表时会报错，保护主表的元表不被改变，getmetatable会返回__metatable字段值，隐藏元表
 ```
-####table访问/赋值的元方法
+###table访问/赋值的元方法
 ```
 __index		-- table变量或function (tbl, key)		-- tbl[key]不存在时，将调用__index获取tbl[key]的返回值(mt.__index = mt,结果即为tbl[key]不存在时就取mt[key]做tbl[key]的值)
 __newindex	-- table变量或function (tbl, key, val)	-- 赋值val给tbl[key]时，若tbl[key]不存在，则会调用__newindex(tbl, key, val)处理替代默认的创建tbl[key]并赋值val的处理
@@ -309,7 +309,7 @@ print(s2.name, s1.name)
 ##六、类
 实际lua中应该没有类的概念，而是使用原型的概念来组织对象间的共享行为。原型也是一种常规对象，当其他对象遇到未知操作时就在这个对象的原型对象中寻找这个未知操作的定义。这样元表的作用就和原型的作用很类似，所以就可以使用元表来实现lua的面向对象编程，原型也就成了元表在lua面向对象编程时的代名词。
 
-####继承和多重继承
+###继承和多重继承
 使用`setmetatable(Super, Base)`和`Base.__index = Base`来模拟继承的特性。
 <br/>使用`setmetatable(Super, {__index = function (t, k) return search(k, {Base1, Base2}); end})`来模拟多重继承的特性。
 
@@ -417,7 +417,7 @@ acnt2:deposit(200);
 print(acnt2:getName(), acnt2.balance, acnt2:getLimit());
 {% endhighlight %}
 
-####私密性
+###私密性
 虽然可以模拟，但对lua的设计目的而言，私密性似乎不非常重要，暂时一瞥掠过。
 
 ##七、与C语言交互
