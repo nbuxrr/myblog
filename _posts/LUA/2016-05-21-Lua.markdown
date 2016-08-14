@@ -307,8 +307,118 @@ print(s2.name, s1.name)
 {% endhighlight %}
 
 ##六、类
-实际lua中应该没有类的类型定义，而是使用表和元表的特性来模拟出类的继承等特性，可以面向对象的编程。
+实际lua中应该没有类的概念，而是使用原型的概念来组织对象间的共享行为。原型也是一种常规对象，当其他对象遇到未知操作时就在这个对象的原型对象中寻找这个未知操作的定义。这样元表的作用就和原型的作用很类似，所以就可以使用元表来实现lua的面向对象编程，原型也就成了元表在lua面向对象编程时的代名词。
 
+####继承和多重继承
+使用`setmetatable(Super, Base)`和`Base.__index = Base`来模拟继承的特性。
+<br/>使用`setmetatable(Super, {__index = function (t, k) return search(k, {Base1, Base2}); end})`来模拟多重继承的特性。
+
+{% highlight lua %}
+--lua面向對象編程的demo
+
+--原型定義
+Account = {balance = 0};
+
+function Account:new(o)
+	o = o or {}; --如果用戶沒有提供table就創建一個
+	setmetatable(o, self);
+	self.__index = self;
+	return o;
+end
+
+function Account:deposit(v)	--存
+	self.balance = self.balance + v;
+	print("deposit", self.balance);
+end
+
+function Account:withdraw(v) --取
+	if v > self.balance then
+		print("insufficient funds");
+	end
+
+	--如果self中原先不存在balance，就会先用Account里的balance-v，然后将结果保存到新建的self.balance元素里
+	self.balance = self.balance - v; 
+	print("withdraw", self.balance);
+end
+
+--继承
+SpecialAccount = Account:new();
+
+function SpecialAccount:getLimit()
+	return self.limit or 0;
+end
+
+function SpecialAccount:withdraw(v)
+	if self.balance - v < -self:getLimit() then
+		print("insufficient funds");
+	end
+
+	self.balance = self.balance - v;
+	print("withdraw", self.balance);
+end
+
+a3 = Account:new{balance = 0};
+a4 = Account:new();
+s1 = SpecialAccount:new{limit = 1000.00};
+s2 = SpecialAccount:new();
+
+print(Account, a1, a2, a3, a4, getmetatable(a4), getmetatable(s1));
+print(Account, a1, a2, a3, a4, getmetatable(a4), getmetatable(s1));
+
+a3:withdraw(100);
+a4:withdraw(100);
+s1:withdraw(100);
+s2:withdraw(100);
+
+--多重继承
+Named = {}
+
+function Named:getName()
+	return self.name;
+end
+
+function Named:setName(n)
+	self.name = n;
+end
+
+
+local function search(k, plist)
+	for i, z in pairs(plist) do
+		local v = plist[i][k]
+		if v then return v end
+	end
+end
+
+function createClass(a, b)	--多重继承
+	local c = {}
+	local parents = {a, b}
+
+	setmetatable(c, {__index = function (t, k)
+		return search(k, parents);
+	end})
+
+	c.__index = c;
+	function c:new(o)
+		o = o or {};
+		setmetatable(o, self);
+		return o;
+	end
+
+	return c;
+end
+
+NamedAccount = createClass(Account, Named);
+SpecialNamedAccount = createClass(SpecialAccount, Named);
+
+acnt1 = NamedAccount:new{name = "Paul"};
+acnt2 = SpecialNamedAccount:new{name = "Ann"};
+print(acnt1:getName(), acnt1.balance);
+acnt2:deposit(200);
+print(acnt2:getName(), acnt2.balance, acnt2:getLimit());
+{% endhighlight %}
+
+####私密性
+虽然可以模拟，但对lua的设计目的而言，私密性似乎不非常重要，暂时一瞥掠过。
 
 ##七、与C语言交互
 
