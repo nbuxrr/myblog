@@ -7,7 +7,7 @@ markdown: redcarpet
 author: 
   name: nbuxrr
   email: nbuxrr@gmail.com
-  link: http://birdxu.com
+  link: https://nbuxrr.github.io/myblog
   weibo: http://weibo.com/nbuxrr
   github: http://github.com/nbuxrr
   music: http://site.douban.com
@@ -16,7 +16,7 @@ author:
 # 站点信息
 title: xurr's blog
 description: My personal blog
-url: http://birdxu.com
+url: https://nbuxrr.github.io/myblog
 rss_url: /pages/atom.xml
 
 # gavatar头像及Favicon
@@ -26,7 +26,7 @@ favicon: /public/img/favicon.png
 # google analytics 设置
 ga:
   id: UA-68721518-1
-  url: birdxu.com
+  url: https://nbuxrr.github.io/myblog
 
 # disqus 设置
 disqus:
