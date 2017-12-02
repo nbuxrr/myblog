@@ -1,0 +1,64 @@
+---
+layout: page_title
+title: <i class="fa fa-home fa-lg"></i>
+titlename: 首页
+---
+<!--<br>--> 
+<center>
+<h3>
+<font color="#000080">Nothing</font>
+<font color="#FFA500">is</font>
+<font color="#2E8B57">impossible</font>
+<font color="#F08080">to</font>
+<font color="#00CED1">a</font>
+<font color="red">willing</font>
+<font color="#BA55D3">mind.</font>
+<font color="#601986"></font>
+<font color="#556fb5"></font>
+<font color="#fa1089"></font>
+<font color="#638c0b"></font>
+<font color="#e00089"></font>
+<font color="#0a1089"></font>
+<font color="#f0c089"></font>
+<font color="#00c380"></font>
+<font color="#cc1089"></font>
+</h3>
+</center>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        {{ site.locals.newest }}	<!--“最新文章”-->
+      </div>
+      {% for post in paginator.posts %} <!--显示篇数在_config.yml中定义-->
+        <a href='{{ post.url }}' class="list-group-item pjaxlink clearfix">
+          
+          {{post.title}}			<!--最新文章的标题-->
+          <span class="badge">{{ post.date | date:"%Y年%m月%d日" }}</span>	<!--文章日期，博客文件中有date就取文件中的，没有就去博客名称上的日期-->
+        
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  
+  {% for cate in site.cates %}						<!--历遍所有演显示的分类标签名-->
+    <div class="col-md-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+        	{{ cate }}                      <!--显示要显示的标签名-->
+        </div>
+        {% for tag in site.tags %}        <!--历遍所有分类标签对象-->
+          {% if tag[0] == cate %}         <!--是要显示的分类标签-->
+            {% for post in tag[1] %}      <!--就显示出该分类标签下前10篇博文-->
+              <a  href='{{ post.url }}' class="list-group-item pjaxlink clearfix">
+                {{post.title}}
+                <span class="badge">{{ post.date | date:"%Y年%m月%d日" }}</span>
+              </a>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>

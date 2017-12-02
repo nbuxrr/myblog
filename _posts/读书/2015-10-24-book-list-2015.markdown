@@ -1,0 +1,50 @@
+---
+layout: book
+title: 2015年阅读书单
+category: 读书
+keywords: 阅读,书单,2015
+books: 
+    - title: 深入理解计算机系统 (原书第二版)
+      status: 已读
+      author: （美）Randal E.Bryant / David O'Hallaron 
+      publisher: 机械工业出版社
+      language: 中文
+      link: http://book.douban.com/subject/5333562/
+      cover: http://img3.douban.com/lpic/s4510534.jpg
+      description: CSAPP，程序员角度看计算机操作系统，很好的书，主要讲解了一些操作系统级设计的实现原理，尤其在细读第6、7、8、9、10章时，淋漓痛快，在脑海中对一个程序在计算机系统上运行的概念会从一个“肖像照”变成一个“X光照”的感觉，而又恰到好处，重于原理思想的讲述与问题分析，对于代码实现点到即止，无拖沓感。
+    - title: C++ Concurrency IN ACTION
+      status: 在读
+      author: Anthony Williams
+      publisher: Manning 
+      language: English
+      link: http://book.douban.com/subject/4130141/
+      cover: http://img3.doubanio.com/lpic/s8951347.jpg
+      description: 是一本关于多线程并发的好书，用网上的英文版pdf打印装订封皮，享受中。
+    - title: Inside the C++ Object Model
+      status: 已读
+      author: Stanley B. Lippman
+      publisher: 电子工业出版社
+      language: 中文（侯捷译）
+      link: http://book.douban.com/subject/10427315/
+      cover: http://img3.douban.com/lpic/s28286248.jpg
+      description: 大师Lippman的另一本C++程序猿们必备收藏和享受的书籍。读这本书时再次感受到了当初读Effective C++时的那种一读不可收拾的欢喜。此书主要分析和讲述了C++面向对象的各种特性的实现原理，C++代码框架设计者不可不读的书。
+    - title: C++ Primer 
+      status: 已读
+      author: Stanley B. Lippman / Josée Lajoie / Barbara E. Moo 
+      publisher: 电子工业出版社
+      language: 中文（王刚、杨巨峰译 翻译质量还算可靠）
+      link: http://book.douban.com/subject/25708312/
+      cover: http://img3.douban.com/lpic/s27294664.jpg
+      description: 即使只冲着作者大神Lippman，这也已经是C++工作者收藏和享用的必备书籍了。这本书之前已买过第四版，为了学习C++11便再买了第五版，认真的看完了一遍。对于基础薄弱的人，这是一本打基础的好书，对于想学习C++11新特性的人，lambda表达式、智能指针、正则表达式库、auto类型指示符之类的新特性决不能错过。
+---
+
+<!--
+    - title: 
+      status: 已读-在读-未读
+      author: 
+      publisher: 
+      language: 
+      link: 
+      cover: 
+      description: 
+-->

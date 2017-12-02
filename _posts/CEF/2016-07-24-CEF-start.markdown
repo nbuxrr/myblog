@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "CEF & C++"
+categories: 代码
+tags: CEF
+keywords: CEF
+description: CEF编译
+---
+
+##一、下载CEF
+源码地址 https://bitbucket.org/chromiumembedded/cef
+<br/>工程向导 https://bitbucket.org/chromiumembedded/cef/wiki/Tutorial.md#markdown-header-windows-build-steps
+<br/>其他的就不废话了。
+
+##二、生成VS2015的CEF工程
+看见源码目录下存在CMakeLists.txt文件，显然就知道CEF项目支持CMAKE创建各种平台上各种IDE对应的工程文件了，贴个图意思一下，也不废话了。
+
+![put a picture](/public/img/cef-cmake.png)
+
+##三、编译CEF及其示例程序
+使用vs2015打开cef.sln,直接ctrl+shift+B生成解决方案，结果一堆链接错误，那么就逐个工程编译检查一下咯。
+
+首先编译libcef_dll_wrapper工程，发现编译链接通过。
+
+然后编译cefsimple工程，报链接错误，检查错误内容，SetWindowText函数在链接时找不到定义，F1看MSDN，这个函数定义在user32.lib中，检查cefsimple工程属性中的依赖库，附加依赖项点击<编辑>进入依赖库配置窗口，直接增加输入user32.lib或勾选“从父级或项目默认设置继承”即可增加链接user32.lib。然后单独对cefsimple生成，生成成功。
+![put a picture](/public/img/cef-cfg2.png)
+
+编译cefclient工程，同样有user32.lib相关函数的报错，一样进入编辑附加依赖项，勾选”从父级或项目默认设置继承“，然后再编译发现还有opengl的库依赖问题，MSDN一下glClear函数，查询依赖lib库为Opengl32.lib，再打开工程属性的依赖项编辑，增加Opengl32.lib（其中原有-lopengl32.lib的附加项，将开头的-l除去，一样可行，应该是由于-l的原因，同样将其他几个CMAKE加入的库也去掉开头的-l）。再编译链接，顺利通过。
+
+##四、运行测试程序
+运行cefsimple，该例程为打开一个goolge的网页的例子，但是你懂的，就换个网址测试啦。
+
+![put a picture](/public/img/cef-simple.png)
+
+运行cefclient，没有显示窗口，调试检查，RootWindowWin::CreateRootWindow中CreateWindow返回NULL，唉，还要检查一下为什么创建窗口失败了。这个问题，后续再解决补充吧。
+
+##PS:
+在OSX平台上使用CMAKE生成xcode的工程，然后使用xcode打开解决方案，不需要修改配置直接顺利编译链接通过，并正常运行cefclient与cefsimple程序。
