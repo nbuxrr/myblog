@@ -1,7 +1,8 @@
 permalink: /:year/:month/:day/:title.html
 paginate: 10
 gems: [jekyll-paginate]
-markdown: redcarpet
+markdown: kramdown
+# redcarpet
 
 # 作者信息
 author: 
